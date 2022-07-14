@@ -137,6 +137,10 @@ app.get("/", (req, res) => {
  });
 
 server.listen(5000, () => {
+
+});
+
+server.listen(process.env.PORT || 5000, () => {
   job.start();
   console.log('listening on *:5000');
 });
