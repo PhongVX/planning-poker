@@ -44,7 +44,21 @@ io.on('connection', (socket) => {
           console.log(roomData[roomId])
           console.log(roomData[roomId]['players'])
           socket.join(roomId);
-          io.to(roomId).emit("REFRESH_ROOM", {...roomData[roomId]})
+          socket.join(socket.id);
+          let players = roomData[roomId]['players'];
+          let total = 0;
+          let count = 0;
+          if (!!players){
+            players.forEach((o) => {
+              if (o.point > 0) {
+                console.log(Number(o.point))
+                total+=Number(o.point);
+                count++;
+              }
+            })
+          }
+          let av = (total / count).toFixed(1);
+          io.to(roomId).emit("REFRESH_ROOM", {...roomData[roomId], average: av})
         }catch(e){
           console.log(e);
         }
@@ -105,7 +119,7 @@ io.on('connection', (socket) => {
               return o;
             })
             roomData[roomId]['players'] = [...result];
-            io.to(roomId).emit("REFRESH_ROOM", {...roomData[roomId]});
+            io.to(roomId).emit("CHANGE_PLAYER_NAME_SUCCESSFULLY", {...roomData[roomId]});
           }
         })
        
@@ -119,7 +133,7 @@ io.on('connection', (socket) => {
             if (result.length == 0) {
                 //delete roomData[roomId]
             }else {
-              io.to(roomId).emit("REFRESH_ROOM", {...roomData[roomId]});
+              io.to(roomId).emit("CLIENT_DISCONNECTED", {...roomData[roomId]});
             }
           }
         });
@@ -135,7 +149,6 @@ io.on('connection', (socket) => {
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
  });
-
 
 server.listen(process.env.PORT || 5000, () => {
   job.start();
