@@ -7,7 +7,7 @@ const nodeCron = require("node-cron");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {cors: {
-  origin: ["http://localhost:3000", "https://planning-poker-virid.vercel.app/", "https://planningpoker.anhlamweb.com/"],
+  origin: ["http://localhost:3000", "https://weareplanning.vercel.app/", "https://planningpoker.anhlamweb.com/"],
   credentials: true
 }});
 
