@@ -152,5 +152,5 @@ app.get("/", (req, res) => {
 
 server.listen(process.env.PORT || 5000, () => {
   job.start();
-  console.log('listening on ', PORT);
+  console.log('listening on ', process.env.PORT);
 });
