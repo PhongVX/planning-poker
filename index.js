@@ -7,7 +7,7 @@ const nodeCron = require("node-cron");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {cors: {
-  origin: ["http://localhost:3000", "https://weareplanning.vercel.app/", "https://planningpoker.anhlamweb.com/"],
+  origin: ["*", "http://localhost:3000", "https://weareplanning.vercel.app/", "https://planningpoker.anhlamweb.com/"],
   credentials: true
 }});
 
@@ -152,5 +152,5 @@ app.get("/", (req, res) => {
 
 server.listen(process.env.PORT || 5000, () => {
   job.start();
-  console.log('listening on *:5000');
+  console.log('listening on ', PORT);
 });

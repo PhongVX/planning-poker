@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "build": "netlify-lambda build express",
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +14,9 @@
     "node-cron": "^3.0.1",
     "socket.io": "^4.5.1",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
   },
   "engines": {
     "node": "14.17.6"
